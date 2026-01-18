@@ -1,0 +1,47 @@
+{% extends 'library/base.html' %}
+
+{% block title %}Authors - Online Library System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Authors</h2>
+    <a href="{% url 'library:author_add' %}" class="btn btn-primary">Add New Author</a>
+</div>
+
+{% if authors %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Bio</th>
+                <th class="table-actions">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for author in authors %}
+            <tr>
+                <td>{{ author.id }}</td>
+                <td>{{ author.name }}</td>
+                <td>{{ author.email }}</td>
+                <td>{{ author.bio|truncatewords:20 }}</td>
+                <td class="table-actions">
+                    <a href="{% url 'library:author_edit' author.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'library:author_delete' author.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'library/pagination.html' %}
+
+{% else %}
+<div class="alert alert-info">
+    No authors found. <a href="{% url 'library:author_add' %}">Add your first author</a>.
+</div>
+{% endif %}
+{% endblock %}

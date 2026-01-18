@@ -1,0 +1,76 @@
+{% extends 'library/base.html' %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Book - Online Library System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">{% if object %}Edit Book{% else %}Add New Book{% endif %}</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="{{ form.title.id_for_label }}" class="form-label">Title *</label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="text-danger">
+                                {% for error in form.title.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.genre.id_for_label }}" class="form-label">Genre *</label>
+                        {{ form.genre }}
+                        {% if form.genre.errors %}
+                            <div class="text-danger">
+                                {% for error in form.genre.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.published_date.id_for_label }}" class="form-label">Published Date *</label>
+                        {{ form.published_date }}
+                        {% if form.published_date.errors %}
+                            <div class="text-danger">
+                                {% for error in form.published_date.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.author.id_for_label }}" class="form-label">Author *</label>
+                        {{ form.author }}
+                        {% if form.author.errors %}
+                            <div class="text-danger">
+                                {% for error in form.author.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            Don't see the author you need? <a href="{% url 'library:author_add' %}">Add a new author</a>.
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'library:book_list' %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-success">{% if object %}Update{% else %}Add{% endif %} Book</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

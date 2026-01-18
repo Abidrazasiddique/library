@@ -1,0 +1,86 @@
+{% extends 'library/base.html' %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Borrow Record - Online Library System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">{% if object %}Edit Borrow Record{% else %}Add New Borrow Record{% endif %}</h4>
+            </div>
+            <div class="card-body">
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="{{ form.user_name.id_for_label }}" class="form-label">User Name *</label>
+                        {{ form.user_name }}
+                        {% if form.user_name.errors %}
+                            <div class="text-danger">
+                                {% for error in form.user_name.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.book.id_for_label }}" class="form-label">Book *</label>
+                        {{ form.book }}
+                        {% if form.book.errors %}
+                            <div class="text-danger">
+                                {% for error in form.book.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            Don't see the book you need? <a href="{% url 'library:book_add' %}">Add a new book</a>.
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.borrow_date.id_for_label }}" class="form-label">Borrow Date *</label>
+                            {{ form.borrow_date }}
+                            {% if form.borrow_date.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.borrow_date.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.return_date.id_for_label }}" class="form-label">Return Date</label>
+                            {{ form.return_date }}
+                            {% if form.return_date.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.return_date.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Leave empty if not yet returned.</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'library:borrowrecord_list' %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-info">{% if object %}Update{% else %}Add{% endif %} Record</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

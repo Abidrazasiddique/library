@@ -1,0 +1,29 @@
+{% extends 'library/base.html' %}
+
+{% block title %}Delete Author - Online Library System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Delete Author</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">Are you sure you want to delete the author "<strong>{{ object.name }}</strong>"?</p>
+                <p class="text-danger">
+                    <strong>Warning:</strong> This will also delete all books associated with this author and their borrow records.
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'library:author_list' %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Delete Author</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

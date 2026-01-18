@@ -1,0 +1,86 @@
+{% extends 'library/base.html' %}
+
+{% block title %}Home - Online Library System{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="mb-4">Welcome to the Online Library System</h1>
+        <p class="lead">Manage your library's authors, books, and borrow records all in one place.</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card card-stat bg-primary text-white">
+            <div class="card-body text-center">
+                <h2 class="display-4">{{ author_count }}</h2>
+                <p class="mb-0">Authors</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat bg-success text-white">
+            <div class="card-body text-center">
+                <h2 class="display-4">{{ book_count }}</h2>
+                <p class="mb-0">Books</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat bg-info text-white">
+            <div class="card-body text-center">
+                <h2 class="display-4">{{ borrow_count }}</h2>
+                <p class="mb-0">Total Borrows</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat bg-warning text-dark">
+            <div class="card-body text-center">
+                <h2 class="display-4">{{ active_borrows }}</h2>
+                <p class="mb-0">Active Borrows</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Manage Authors</h5>
+            </div>
+            <div class="card-body">
+                <p>Add, edit, and manage author information including name, email, and biography.</p>
+                <a href="{% url 'library:author_list' %}" class="btn btn-outline-primary">View Authors</a>
+                <a href="{% url 'library:author_add' %}" class="btn btn-primary">Add Author</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Manage Books</h5>
+            </div>
+            <div class="card-body">
+                <p>Add, edit, and manage books with title, genre, published date, and author assignment.</p>
+                <a href="{% url 'library:book_list' %}" class="btn btn-outline-success">View Books</a>
+                <a href="{% url 'library:book_add' %}" class="btn btn-success">Add Book</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Manage Borrow Records</h5>
+            </div>
+            <div class="card-body">
+                <p>Track book borrowings with user name, borrow date, and return date information.</p>
+                <a href="{% url 'library:borrowrecord_list' %}" class="btn btn-outline-info">View Records</a>
+                <a href="{% url 'library:borrowrecord_add' %}" class="btn btn-info">Add Record</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
